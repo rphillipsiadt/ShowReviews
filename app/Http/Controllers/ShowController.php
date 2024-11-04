@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Show;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ShowController extends Controller
 {
@@ -21,7 +22,7 @@ class ShowController extends Controller
      */
     public function create()
     {
-        //
+        return view('shows.create');
     }
 
     /**
@@ -29,7 +30,34 @@ class ShowController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate input
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required|max:500',
+            'year' => 'required|integer',
+            'episode_count' => 'required|integer',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        // Check if the image is uploaded and handle it
+        if (request->hasFile('image')) {
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('image/shows'), $imageName);
+        }
+
+        // Create a show record in the database
+        Show::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'year' => $request->year,
+            'episode_count' => $request->episode_count,
+            'image' => $imageName, //Store the image URL in the DB
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        // Redirect to the index page with a success message
+        return to_route('shows.index')->with('success', 'Show created successfully!');
     }
 
     /**

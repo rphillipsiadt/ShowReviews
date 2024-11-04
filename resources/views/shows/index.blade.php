@@ -3,6 +3,10 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('All Shows') }}
         </h2>
+
+        <x-alert-success>
+            {{ session('success') }}
+        </x-alert-success>
     </x-slot>
 
     <div class="py-12">
