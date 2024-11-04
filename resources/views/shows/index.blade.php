@@ -22,6 +22,13 @@
                                 :image="$show->image"
                                 
                             />
+                        </a>
+                        <!-- Edit and Delete Buttons -->
+                        <div class="mt-4 flex space-x-2">
+                            <a href="{{ route('shows.edit', $show) }}" class="text-gray-600 bg-orange-300 hover:bg-orange-700 font-bold py-2 px-4 rounded">
+                                Edit
+                            </a>
+                        </div>
                         @endforeach
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-@props(['action','method'])
+@props(['action','method', 'show'])
 
 <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
     @csrf
@@ -24,8 +24,8 @@
         <label for="description" class="block text-sm text-gray-700">Description</label>
         <input
             type="text"
-            name="title"
-            id="title"
+            name="description"
+            id="description"
             value="{{ old('description', $show->description ??'') }}"
             required
             class="mt-1 block w-full h-24 border-gray-300 rounded-md shadow-sm" />

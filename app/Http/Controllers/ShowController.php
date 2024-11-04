@@ -40,7 +40,7 @@ class ShowController extends Controller
         ]);
 
         // Check if the image is uploaded and handle it
-        if (request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $imageName = time().'.'.$request->image->extension();
             $request->image->move(public_path('image/shows'), $imageName);
         }
