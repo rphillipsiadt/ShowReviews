@@ -42,7 +42,7 @@ class ShowController extends Controller
         // Check if the image is uploaded and handle it
         if ($request->hasFile('image')) {
             $imageName = time().'.'.$request->image->extension();
-            $request->image->move(public_path('image/shows'), $imageName);
+            $request->image->move(public_path('images/shows'), $imageName);
         }
 
         // Create a show record in the database
@@ -73,7 +73,7 @@ class ShowController extends Controller
      */
     public function edit(Show $show)
     {
-        //
+        return view('shows.edit')->with('show', $show);  
     }
 
     /**
@@ -81,7 +81,33 @@ class ShowController extends Controller
      */
     public function update(Request $request, Show $show)
     {
-        //
+        // Validate input
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required|max:500',
+            'year' => 'required|integer',
+            'episode_count' => 'required|integer',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:8192'
+        ]);
+
+        // Check if the image is uploaded and handle it
+        if ($request->hasFile('image')) {
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('images/shows'), $imageName);
+        }
+
+        // Create a show record in the database
+        $show->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'year' => $request->year,
+            'episode_count' => $request->episode_count,
+            'image' => $imageName, //Store the image URL in the DB
+            'updated_at' => now()
+        ]);
+
+        // Redirect to the index page with a success message
+        return to_route('shows.index')->with('success', 'Show edited successfully!');
     }
 
     /**
@@ -89,6 +115,8 @@ class ShowController extends Controller
      */
     public function destroy(Show $show)
     {
-        //
+        $show->delete();
+
+        return to_route('shows.index')->with('success', 'Show deleted successfully!');
     }
 }

@@ -82,7 +82,7 @@
     
     @isset($show->image)
         <div class="mb-4">
-            <img src="{{ asset($show->image) }}" alt="Show poster" class="w-24 h-32 object-cover">
+            <img src="{{ asset('images/shows/' . $show->image) }}" alt="Show poster" class="w-24 h-32 object-cover">
         </div>
     @endisset
 
