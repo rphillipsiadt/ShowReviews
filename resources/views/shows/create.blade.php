@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <h3 class="font-semibold text-lg mb-4">Add a New Show</h3>
-
+                    <!-- Routes to shows.store -->
                     <x-show-form
                         :action="route('shows.store')"
                         :method="'POST'"

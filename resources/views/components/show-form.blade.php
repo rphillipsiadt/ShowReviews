@@ -19,7 +19,7 @@
             <p class="text-sm text-red-600">{{ $message }}</p>
         @enderror
     </div>
-
+<!-- Creates input boxes for each field in the show -->
     <div class="mb-4">
         <label for="description" class="block text-sm text-gray-700">Description</label>
         <input
@@ -79,14 +79,15 @@
         @error('image')
             <p class="text-sm text-red-600">{{ $message }}</p>
         @enderror
-    </div
-    
+    </div>
+    <!-- Shows the image under the box to input an image -->
     @isset($show->image)
         <div class="mb-4">
             <img src="{{ asset('images/shows/' . $show->image) }}" alt="Show poster" class="w-24 h-32 object-cover">
         </div>
     @endisset
 
+    <!-- Creates a button to submit button -->
     <div>
         <x-primary-button class="bg-green-700">
             {{ isset($show) ? 'Update Show': 'Add Show'}}

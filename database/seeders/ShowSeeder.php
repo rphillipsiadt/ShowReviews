@@ -15,7 +15,9 @@ class ShowSeeder extends Seeder
     public function run(): void
     {
 
-
+        /**
+         * Arrays of values to be seeded into the shows table
+         */
         $currentTimestamp = Carbon::now();
             Show::insert([
                 ["title" => "The Good Place", "image" => "the_good_place.jpg", "year" => "2016", "description" => "Four people and their otherworldly frienemy struggle in the afterlife to define what it means to be good.", "episode_count" => "50", "created_at" => $currentTimestamp, "updated_at" => $currentTimestamp],

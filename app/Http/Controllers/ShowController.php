@@ -18,6 +18,46 @@ class ShowController extends Controller
     // }
 
     /**
+     * Search for the name of a show
+     */
+    public function index(Request $request)
+    {
+        $episode_count = $request->input('episode_count');
+        $year = $request->input('year');
+        $title = $request->input('title');
+        
+        // Starts building the query
+        $query = Show::query();
+        
+        if (!empty($episode_count)) {
+            $query->where('episode_count', $episode_count);
+        }
+
+        if (!empty($year)) {
+            $query->where('year', $year);
+        }
+
+        if (!empty($title)) {
+            $query->where('title', 'LIKE', "{$title}%");
+        }
+
+        // Execute the query and order results by 'title'
+        $shows = $query->orderBy('title', 'asc')->get();
+
+        // Check if request expects JSON response (for AJAX search) or HTML view
+        if ($request->wantsJson()) {
+            return response()->json($shows);
+        }
+
+        return view('shows.index', [
+            'title' => $title,
+            'year' => $year,
+            'episode_count' => $episode_count,
+            'shows' => $shows,
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
@@ -118,46 +158,6 @@ class ShowController extends Controller
         $show->delete();
 
         return to_route('shows.index')->with('success', 'Show deleted successfully!');
-    }
-
-    /**
-     * Search for the name of a show
-     */
-    public function index(Request $request)
-    {
-        $episode_count = $request->input('episode_count');
-        $year = $request->input('year');
-        $title = $request->input('title');
-        
-        // Starts building the query
-        $query = Show::query();
-        
-        if (!empty($episode_count)) {
-            $query->where('episode_count', $episode_count);
-        }
-
-        if (!empty($year)) {
-            $query->where('year', $year);
-        }
-
-        if (!empty($title)) {
-            $query->where('title', 'LIKE', "{$title}%");
-        }
-
-        // Execute the query and order results by 'title'
-        $shows = $query->orderBy('title', 'asc')->get();
-
-        // Check if request expects JSON response (for AJAX search) or HTML view
-        if ($request->wantsJson()) {
-            return response()->json($shows);
-        }
-
-        return view('shows.index', [
-            'title' => $title,
-            'year' => $year,
-            'episode_count' => $episode_count,
-            'shows' => $shows,
-        ]);
     }
 
 }

@@ -9,6 +9,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-grat-900">
                     <h3 class="font-semibold text-lg mb-4">Edit New Show</h3>
+                    <!-- Routes to shows.update -->
                     <x-show-form
                         :action="route('shows.update', $show)"
                         :method="'PUT'"

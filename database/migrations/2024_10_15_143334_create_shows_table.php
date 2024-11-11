@@ -11,6 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        /**
+         * Creates field in the shows table for the show
+         */
         Schema::create('shows', function (Blueprint $table) {
             $table->id();
             $table->string('title');
