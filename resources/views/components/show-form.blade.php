@@ -67,11 +67,12 @@
     </div>
 
     <div class="mb-4">
-        <lavel for="image" class="block text-sm font-medium text-gray-700">Show Poster Image</label>
+        <label for="image" class="block text-sm font-medium text-gray-700">Show Poster Image</label>
         <input
             type="file"
             name="image"
             id="image"
+            value="{{ old('image', $show->image ??'') }}"
             {{ isset($show) ? '' : 'required' }}
             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             />
@@ -87,7 +88,7 @@
     @endisset
 
     <div>
-        <x-primary-button>
+        <x-primary-button class="bg-green-700">
             {{ isset($show) ? 'Update Show': 'Add Show'}}
         </x-primary-button>
     </div>
