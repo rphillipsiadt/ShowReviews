@@ -6,6 +6,7 @@
         @method($method)
     @endif
 
+    <!-- Creates input boxes for each field in the show -->
     <div class="mb-4">
         <label for="title" class="block text-sm text-gray-700">Title</label>
         <input
@@ -19,7 +20,6 @@
             <p class="text-sm text-red-600">{{ $message }}</p>
         @enderror
     </div>
-<!-- Creates input boxes for each field in the show -->
     <div class="mb-4">
         <label for="description" class="block text-sm text-gray-700">Description</label>
         <input
