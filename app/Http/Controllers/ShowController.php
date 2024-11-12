@@ -49,7 +49,7 @@ class ShowController extends Controller
             return response()->json($shows);
         }
 
-        return view('shows.index', [
+        return view('shows.index', compact('shows'), [
             'title' => $title,
             'year' => $year,
             'episode_count' => $episode_count,
@@ -62,6 +62,9 @@ class ShowController extends Controller
      */
     public function create()
     {
+        if (auth()->user()->role !== 'admin') {
+            return redirect()->route('shows.index')->with('error', 'Access denied');
+        }
         return view('shows.create');
     }
 
