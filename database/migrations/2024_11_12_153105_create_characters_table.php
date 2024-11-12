@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('characters', function (Blueprint $table) {
             $table->id();
+            // cascade here means if show is deleted so will the characters
+            $table->foreignId('show_id')->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->text('about');
+            $table->string('image');
             $table->timestamps();
         });
     }

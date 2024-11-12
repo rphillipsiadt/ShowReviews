@@ -28,7 +28,19 @@ class CharacterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:32',
+            'about' => 'required|string|max:256',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        $show->characters()->create([
+            'show_id' =>auth() ->id(),
+            'name' => $request->input('name'),
+            'about' => $request->input('about'),
+            'image' => $request->input('image'),
+        ]);
+        return redirect()->route('shows.show', $show)->with('success', 'Character added successfully');
     }
 
     /**
@@ -36,7 +48,8 @@ class CharacterController extends Controller
      */
     public function show(Character $character)
     {
-        //
+        $show->load('characters.user');
+        return view('shows.show', compact('show'))->with('show', $show);
     }
 
     /**

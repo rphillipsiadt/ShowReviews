@@ -27,4 +27,14 @@ Route::put('/shows/{show}', [ShowController::class, 'update'])->name('shows.upda
 Route::get('/shows/{show}/edit', [ShowController::class, 'edit'])->name('shows.edit');
 Route::delete('/shows/{show}', [ShowController::class, 'destroy'])->name('shows.destroy');
 
+// Creates routes for different functions for characters
+Route::resource('characters', CharacterController::class);
+
+/**
+ * I am overwriting the usual store route as I want it to accept a show parameter
+ * This route is designed to take a show parameter, so it expects shows/{show}/characters in the URL.
+ * The route name 'reviews.store' is what we mention in the view eg. <form action="{{ route('reviews.store', $show) }}"
+ */
+Route::post('shows/{show}/characters', [CharacterController::class, 'store'])->name('characters.store');
+
 require __DIR__.'/auth.php';
