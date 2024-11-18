@@ -33,6 +33,11 @@ class CharacterController extends Controller
             'about' => 'required|string|max:256',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
+        
+        if ($request->hasFile('image')) {
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('images/shows'), $imageName);
+        }
 
         $show->characters()->create([
             'show_id' =>auth() ->id(),
@@ -40,6 +45,8 @@ class CharacterController extends Controller
             'about' => $request->input('about'),
             'image' => $request->input('image'),
         ]);
+
+        
         return redirect()->route('shows.show', $show)->with('success', 'Character added successfully');
     }
 
