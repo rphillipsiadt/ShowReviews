@@ -39,6 +39,56 @@
                      <h4 class="font-semibold text-md mt-8">Add a Character</h4>
                      <form action="{{ route('characters.store', $show) }}" method="POST" class="mt-4">
                         @csrf
+                        <div class="mb-4">
+                            <label for="name" class="block text-sm text-gray-700">Title</label>
+                            <input
+                                type="text"
+                                name="name"
+                                id="name"
+                                value="{{ old('name', $character->name ??'') }}"
+                                required
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+                            @error('name')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="mb-4">
+                            <label for="about" class="block text-sm text-gray-700">Title</label>
+                            <input
+                                type="text"
+                                name="about"
+                                id="about"
+                                value="{{ old('about', $character->about ??'') }}"
+                                required
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+                            @error('about')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="mb-4">
+                            <label for="image" class="block text-sm font-medium text-gray-700">Show Poster Image</label>
+                            <input
+                                type="file"
+                                name="image"
+                                id="image"
+                                value="{{ old('image', $character->image ??'') }}"
+                                {{ isset($character) ? '' : 'required' }}
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                />
+                            @error('image')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <!-- Shows the image under the box to input an image -->
+                        @isset($character->image)
+                            <div class="mb-4">
+                                <img src="{{ asset('images/shows/' . $character->image) }}" alt="Show poster" class="w-24 h-32 object-cover">
+                            </div>
+                        @endisset
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Submit Character
+                        </button>
+
                         
                      </form>
                 </div>
