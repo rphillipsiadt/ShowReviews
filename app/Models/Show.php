@@ -19,7 +19,7 @@ class Show extends Model
         'updated_at'
     ];
 
-    public function reviews()
+    public function characters()
     {
         return $this->hasMany(Character::class);
     }

@@ -20,6 +20,7 @@
                         />
 
                     <h4 class="font-semibold text-md mt-8">characters</h4>
+                    
                     @if($show->characters->isEmpty())
                         <p class="text-gray-600">No characters yet</p>
                     @else
