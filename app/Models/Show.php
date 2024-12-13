@@ -23,4 +23,9 @@ class Show extends Model
     {
         return $this->hasMany(Character::class);
     }
+
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class);
+    }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShowController;
 use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\GenreController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -37,5 +38,7 @@ Route::resource('characters', CharacterController::class);
  * The route name 'reviews.store' is what we mention in the view eg. <form action="{{ route('reviews.store', $show) }}"
  */
 Route::post('shows/{show}/characters', [CharacterController::class, 'store'])->name('characters.store');
+
+Route::resource('genres', GenreController::class)->middleware('auth');
 
 require __DIR__.'/auth.php';
