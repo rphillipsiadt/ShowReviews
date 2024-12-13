@@ -41,4 +41,5 @@ Route::post('shows/{show}/characters', [CharacterController::class, 'store'])->n
 
 Route::resource('genres', GenreController::class)->middleware('auth');
 
+
 require __DIR__.'/auth.php';

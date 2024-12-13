@@ -117,8 +117,7 @@ class ShowController extends Controller
      */
     public function edit(Show $show)
     {
-        $book->load('reviews.user');
-        return view('shows.show', compact('show'));
+        return view('shows.edit', compact('show'));
         // return view('shows.edit')->with('show', $show);  
     }
 

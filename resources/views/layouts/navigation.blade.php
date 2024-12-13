@@ -18,9 +18,15 @@
                     <x-nav-link :href="route('shows.index')" :active="request()->routeIs('shows.index')">
                         {{ __('View All Shows') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('genres.index')" :active="request()->routeIs('genres.index')">
+                        {{ __('View All Genres') }}
+                    </x-nav-link>
                     @if(auth()->user()->role === 'admin')
                         <x-nav-link :href="route('shows.create')" :active="request()->routeIs('shows.create')">
                             {{ __('Create Show') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('genres.create')" :active="request()->routeIs('genres.create')">
+                            {{ __('Create Genre') }}
                         </x-nav-link>
                     @endif
                 </div>

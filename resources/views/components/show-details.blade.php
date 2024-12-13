@@ -29,6 +29,8 @@
 
         <h2 class="text-gray-500 text-sm italic mb-4" style="font-size: 1rem;">Episodes: {{ $episode_count }}</h2> <!-- Emphasizing year with italics and smaller text --> 
 
+        
+
     
 
         <!-- Show Description --> 
