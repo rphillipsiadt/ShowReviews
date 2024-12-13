@@ -30,67 +30,83 @@
                                     <p>Name: {{ $character->name }}</p>
                                     <p>{{ $character->about}}</p>
                                     <img src="{{ asset('images/characters/' . $character->image) }}" alt="Character image">
+
+                                    @if(auth()->user()->role === 'admin')
+                                        <a href="{{ route('characters.edit', $character) }}" class="bg-yellow-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">
+                                            {{ __('Edit Character') }}
+                                        </a>
+                                        <form method="POST" action="{{ route('characters.destroy', $character) }}">
+                                            @csrf
+                                            @method('delete')
+                                            <x-danger-button :href="route('characters.destroy', $character)"
+                                                                onclick="event.preventDefault(); this.closest('form').submit();">
+                                                {{ __('Delete Character') }}
+                                            </x-danger-button>
+                                        </form>
+                                    @endif
                                 </li>
                             @endforeach
                         </ul>
                     @endif
-
-                    <!-- Add a new character -->
-                     <h4 class="font-semibold text-md mt-8">Add a Character</h4>
-                     <form action="{{ route('characters.store', $show) }}" method="POST" enctype="multipart/form-data" class="mt-4">
-                        @csrf
-                        <div class="mb-4">
-                            <label for="name" class="block text-sm text-gray-700">Name</label>
-                            <input
-                                type="text"
-                                name="name"
-                                id="name"
-                                value="{{ old('name', $character->name ??'') }}"
-                                required
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
-                            @error('name')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        <div class="mb-4">
-                            <label for="about" class="block text-sm text-gray-700">About</label>
-                            <input
-                                type="text"
-                                name="about"
-                                id="about"
-                                value="{{ old('about', $character->about ??'') }}"
-                                required
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
-                            @error('about')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        <div class="mb-4">
-                            <label for="image" class="block text-sm font-medium text-gray-700">Show Character Image</label>
-                            <input
-                                type="file"
-                                name="image"
-                                id="image"
-                                value="{{ old('image', $character->image ??'') }}"
-                                {{ isset($character) ? '' : 'required' }}
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                                />
-                            @error('image')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        <!-- Shows the image under the box to input an image -->
-                        @isset($character->image)
+                    
+                    @if(auth()->user()->role === 'admin')
+                        <!-- Add a new character -->
+                        <h4 class="font-semibold text-md mt-8">Add a Character</h4>
+                        <form action="{{ route('characters.store', $show) }}" method="POST" enctype="multipart/form-data" class="mt-4">
+                            @csrf
                             <div class="mb-4">
-                                <img src="{{ asset('images/characters/' . $character->image) }}" alt="Character poster" class="w-24 h-32 object-cover">
+                                <label for="name" class="block text-sm text-gray-700">Name</label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    id="name"
+                                    value="{{ old('name', $character->name ??'') }}"
+                                    required
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+                                @error('name')
+                                    <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
                             </div>
-                        @endisset
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            Submit Character
-                        </button>
+                            <div class="mb-4">
+                                <label for="about" class="block text-sm text-gray-700">About</label>
+                                <input
+                                    type="text"
+                                    name="about"
+                                    id="about"
+                                    value="{{ old('about', $character->about ??'') }}"
+                                    required
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+                                @error('about')
+                                    <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="mb-4">
+                                <label for="image" class="block text-sm font-medium text-gray-700">Show Character Image</label>
+                                <input
+                                    type="file"
+                                    name="image"
+                                    id="image"
+                                    value="{{ old('image', $character->image ??'') }}"
+                                    {{ isset($character) ? '' : 'required' }}
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                    />
+                                @error('image')
+                                    <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <!-- Shows the image under the box to input an image -->
+                            @isset($character->image)
+                                <div class="mb-4">
+                                    <img src="{{ asset('images/characters/' . $character->image) }}" alt="Character poster" class="w-24 h-32 object-cover">
+                                </div>
+                            @endisset
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                Submit Character
+                            </button>
 
-                        
-                     </form>
+                            
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>
