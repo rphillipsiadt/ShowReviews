@@ -108,7 +108,8 @@ class ShowController extends Controller
      */
     public function show(Show $show)
     {
-        return view('shows.show', compact('show'))->with('show', $show);
+        $show->load('characters');
+        return view('shows.show', compact('show'));
     }
 
     /**
@@ -116,7 +117,9 @@ class ShowController extends Controller
      */
     public function edit(Show $show)
     {
-        return view('shows.edit')->with('show', $show);  
+        $book->load('reviews.user');
+        return view('shows.show', compact('show'));
+        // return view('shows.edit')->with('show', $show);  
     }
 
     /**

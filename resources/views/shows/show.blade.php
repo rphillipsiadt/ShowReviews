@@ -27,10 +27,9 @@
                         <ul class="mt-4 space-y-4">
                             @foreach($show->characters as $character)
                                 <li class="bg-gray-100 p-4 rounded-lg">
-                                    <p class="font-semibold">{{ $character->user->name }} ({{ $character->created_at->format('M d, Y') }})</p>
                                     <p>Name: {{ $character->name }}</p>
                                     <p>{{ $character->about}}</p>
-                                    <p>{{ asset('images/characters/' . $character->image) }}</p>
+                                    <img src="{{ asset('images/characters/' . $character->image) }}" alt="Character image">
                                 </li>
                             @endforeach
                         </ul>
@@ -38,10 +37,10 @@
 
                     <!-- Add a new character -->
                      <h4 class="font-semibold text-md mt-8">Add a Character</h4>
-                     <form action="{{ route('characters.store', $show) }}" method="POST" class="mt-4">
+                     <form action="{{ route('characters.store', $show) }}" method="POST" enctype="multipart/form-data" class="mt-4">
                         @csrf
                         <div class="mb-4">
-                            <label for="name" class="block text-sm text-gray-700">Title</label>
+                            <label for="name" class="block text-sm text-gray-700">Name</label>
                             <input
                                 type="text"
                                 name="name"
@@ -54,7 +53,7 @@
                             @enderror
                         </div>
                         <div class="mb-4">
-                            <label for="about" class="block text-sm text-gray-700">Title</label>
+                            <label for="about" class="block text-sm text-gray-700">About</label>
                             <input
                                 type="text"
                                 name="about"
@@ -67,7 +66,7 @@
                             @enderror
                         </div>
                         <div class="mb-4">
-                            <label for="image" class="block text-sm font-medium text-gray-700">Show Poster Image</label>
+                            <label for="image" class="block text-sm font-medium text-gray-700">Show Character Image</label>
                             <input
                                 type="file"
                                 name="image"
@@ -83,7 +82,7 @@
                         <!-- Shows the image under the box to input an image -->
                         @isset($character->image)
                             <div class="mb-4">
-                                <img src="{{ asset('images/shows/' . $character->image) }}" alt="Show poster" class="w-24 h-32 object-cover">
+                                <img src="{{ asset('images/characters/' . $character->image) }}" alt="Character poster" class="w-24 h-32 object-cover">
                             </div>
                         @endisset
                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

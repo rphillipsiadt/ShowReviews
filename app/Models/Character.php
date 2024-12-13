@@ -12,7 +12,8 @@ class Character extends Model
     protected $fillable = [
         'name',
         'about',
-        'description',
+        'show_id',
+        'image'
     ];
 
     public function show()
